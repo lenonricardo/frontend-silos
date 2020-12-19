@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/HelloWorld';
-import ViewHello from '@/components/ViewWorld';
+import Home from '@/components/Home';
+import Camera from '@/components/Camera';
+import Reports from '@/components/Reports';
 
 Vue.use(Router);
 
@@ -11,13 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Home',
+      component: Home
     },
     {
-      path: '/view',
-      name: 'ViewHello',
-      component: ViewHello
+      path: '/camera',
+      name: 'Capturar Amostra',
+      component: Camera
+    },
+    {
+      path: '/relatorios',
+      name: 'Relatórios',
+      component: Reports
     }
   ]
 });

@@ -37,7 +37,9 @@ export default {
 
 	computed: {
 		dynamicClass() {
-			if (this.drawer) {
+			if (this.drawer && this.$vuetify.breakpoint.xsAndUp) {
+				return 'noLeft'
+			} else if (this.drawer) {
 				return 'left'
 			} else {
 				return 'noLeft'
@@ -45,12 +47,12 @@ export default {
 
 		}
 	}
-};
+}
 </script>
 
 <style lang="sass" scoped>
 	.left
-		margin-left: 200px
+		margin-left: 256px
 
 	.noLeft
 		margin-left: 0px

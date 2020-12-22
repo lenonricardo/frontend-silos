@@ -23,7 +23,7 @@
 			</div>
 			<img v-bind:src="chartImage" class="chart-image"/>
 			<div class="chart-label">
-				<div class="line"><span class="title">Total: </span><span>1.235 (100%)</span></div>
+				<div class="line"><span class="title">Total: </span><span style="margin-right: 10px">1.235 (100%)</span></div>
 				<div class="line"><span class="title">Não detectados: </span><span>5 (0.2%)</span></div>
 			</div>
 		</div>

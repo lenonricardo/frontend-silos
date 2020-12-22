@@ -53,6 +53,7 @@ export default {
 <style lang="sass" scoped>
 	.left
 		margin-left: 256px
+		margin-right: 100px
 
 	.noLeft
 		margin-left: 0px

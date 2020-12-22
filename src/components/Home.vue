@@ -1,6 +1,27 @@
 <template>
 	<div style="width: 100%; height: 100%; display: flex;">
-		<Chart/>
+	<v-card
+			width="70vh"
+			max-height="87vh"
+			elevation="4"
+			style="margin-left: 0px !important;"
+		>
+		<v-system-bar></v-system-bar>
+		<v-toolbar flat>
+			<v-toolbar-title style="font-weight: bold">Gráficos</v-toolbar-title>
+			<v-spacer></v-spacer>
+		</v-toolbar>
+		<v-banner
+			single-line
+		>
+			Resultados da última amostra coletada.
+		</v-banner>
+		<v-container fluid>
+			<div style="max-height: 80%">
+				<Chart/>
+			</div>
+		</v-container>
+		</v-card>
 	</div>
 </template>
 

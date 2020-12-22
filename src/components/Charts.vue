@@ -11,12 +11,12 @@ export default {
 	mounted () {
 		// Overwriting base render method with actual data.
 		this.renderChart({
-			labels: ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'],
+			labels: ['Sadios', 'Imaturos', 'Queimados', 'Sujeira', 'Chochos', 'Fermentados'],
 			datasets: [
 			{
-				label: 'GitHub Commits',
+				label: 'porcentagem (%)',
 				backgroundColor: '#44cc97',
-				data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+				data: [95, 2, 1, 0.5, 1, 0.5]
 			}
 			]
 		}, {responsive: true, animation: { onComplete: this.done()}})
@@ -25,7 +25,6 @@ export default {
 	methods: {
 		done () {
 			if (this.report) {
-				const self = this
 
 				const canvas = this.$refs.canvas
 				setTimeout(function(){

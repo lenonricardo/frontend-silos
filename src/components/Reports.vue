@@ -57,14 +57,17 @@
 			Ops! Parece que esse modelo ainda não foi implementado.
 		</v-alert>
 	</v-container>
-	<Report/>
+	<Report
+		:model="select"
+	/>
 	</v-card>
 </div>
 </template>
-
+<script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
 import Report from './Report'
 import EventBus from '../EventBus'
+import Email from '../smtp.js';
 
 export default {
 components: {
@@ -74,9 +77,9 @@ components: {
 data: () => ({
 	items: [
 		{ texto: 'Gráfico', valor: 'grafico'},
-
+		{ texto: 'Cooperado', valor: 'sem-grafico'}
 	],
-	select: { texto: 'Gráfico', valor: 'grafico' },
+	select: 'grafico',
 	gerarRelatorio: false,
 	loading: true,
 	alertar: false
@@ -85,6 +88,21 @@ data: () => ({
 methods: {
 	gerar() {
 		EventBus.$emit('gerarRelatorio', this.select.valor)
+		// this.sendEmail()
+	},
+
+	sendEmail () {
+
+		Email.send({
+			SecureToken: "e5c99654-0966-44da-8fdc-8ca6041a9a2d",
+        To: 'lenon_ricardo@hotmail.com',
+        From: "lenonricardomendes@gmail.com",
+        Subject: "Existem grãos que são sadios",
+        Body: "<a href='google.com'>Top</a> demais!",
+      })
+        .then(function (message) {
+			  console.log(message)
+        });
 	}
 },
 created () {

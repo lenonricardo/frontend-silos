@@ -16,7 +16,8 @@
 			ref="html2Pdf"
 		>
 		<section slot="pdf-content">
-			<ComGraficos :chartImage="chartImage"/>
+			<ComGraficos v-if="model === 'grafico'" :chartImage="chartImage"/>
+			<SemGraficos v-else-if="model === 'sem-grafico'"/>
 		</section>
 		</vue-html2pdf>
 	</div>
@@ -27,8 +28,13 @@
 	import Charts from './Charts'
 	import VueHtml2pdf from 'vue-html2pdf'
 	import ComGraficos from './relatorios/ComGraficos'
+	import SemGraficos from './relatorios/SemGraficos'
 
 	export default {
+	props: {
+		model: { type: String, default: ''}
+	},
+
 	data: () => ({
 		chartImage: ''
 	}),
@@ -48,6 +54,7 @@
 	components: {
 		VueHtml2pdf,
 		ComGraficos,
+		SemGraficos,
 		Charts
 	},
 

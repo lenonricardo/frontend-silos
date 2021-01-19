@@ -7,32 +7,46 @@
 				<v-img style="width: 110px" src="./assets/logo-sem-fundo.png"></v-img>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-				<v-btn icon>
-					<v-icon>mdi-bell</v-icon>
-				</v-btn>
+			<v-btn icon @click.stop="rightDrawer = !rightDrawer">
+				<v-badge
+					:content="messages"
+					:value="messages"
+					small
+					overlap
+					color="red"
+				>
+					<v-icon large>mdi-bell</v-icon>
+				</v-badge>
+			</v-btn>
 		</v-app-bar>
 		<v-content>
-			<Drawer :drawer="drawer">
-				<template>
-					<router-view :class="dynamicClass"/>
-				</template>
-			</Drawer>
+			<NotificationDrawer :drawer="rightDrawer" :messages.sync="messages">
+				<Drawer :drawer="drawer">
+					<template>
+						<router-view :class="dynamicClass"/>
+					</template>
+				</Drawer>
+			</NotificationDrawer>
 		</v-content>
 	</v-app>
 </template>
 
 <script>
 import Drawer from './components/NavigationDrawer.vue'
+import NotificationDrawer from './components/NotificationDrawer.vue'
 
 export default {
 	name: 'App',
 	data: () => ({
 		dialog: false,
-		drawer: true
+		drawer: true,
+		rightDrawer: null,
+		messages: 0
 	}),
 
 	components: {
-		Drawer
+		Drawer,
+		NotificationDrawer
 	},
 
 	computed: {
@@ -44,17 +58,19 @@ export default {
 			} else {
 				return 'noLeft'
 			}
-
 		}
 	}
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 	.left
 		margin-left: 256px
 		margin-right: 100px
 
 	.noLeft
 		margin-left: 0px
+
+	.v-badge__badge
+		font-size: 12px !important
 </style>

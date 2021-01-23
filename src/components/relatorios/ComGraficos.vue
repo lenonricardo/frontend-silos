@@ -15,7 +15,8 @@
 		</div>
 		<div class="img-amostra">
 			<h1 class="img-text"> Imagem da Amostra</h1>
-			<img src="../../assets/amostra.png" class="image"/>
+			<img v-if="imgSrc !== ''" :src="imgSrc" class="image"/>
+			<img v-else src="../../assets/amostra.png" class="image"/>
 		</div>
 		<div class="frame">
 			<div class="header-frame">
@@ -40,6 +41,13 @@ export default {
 
 	components: {
 		Header
+	},
+
+	computed : {
+		imgSrc () {
+			console.log(this.$store.state.img)
+			return this.$store.state.img
+		}
 	}
 }
 </script>
@@ -65,7 +73,7 @@ export default {
 		font-weight: bold
 
 	.img-amostra
-		width: 100%
+		width: 80%
 		display: flex
 		align-items: center
 		justify-content: center

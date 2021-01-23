@@ -6,7 +6,7 @@
 			:float-layout="true"
 			:enable-download="false"
 			:preview-modal="true"
-			:paginate-elements-by-height="2000"
+			:paginate-elements-by-height="3000"
 			filename="hee hee"
 			:pdf-quality="2"
 			:manual-pagination="false"
@@ -17,7 +17,7 @@
 		>
 		<section slot="pdf-content">
 			<ComGraficos v-if="model === 'grafico'" :chartImage="chartImage"/>
-			<SemGraficos v-else-if="model === 'sem-grafico'"/>
+			<SemGraficos v-else-if="model === 'sem-grafico'" :classificacao="data"/>
 		</section>
 		</vue-html2pdf>
 	</div>
@@ -42,12 +42,38 @@
 	computed: {
 		isImgLoaded () {
 			return this.chartImage !== ''
+		},
+
+		data () {
+			const data = this.$store.state.json
+			let obj = {}
+			const array = []
+
+			Object.entries(data.classes).forEach(([key, value]) => {
+				obj.grao = key
+				obj.porcentagem = this.truncateDecimals(value, 2)
+
+				array.push(obj)
+				obj = {}
+			})
+			// eslint-disable-next-line
+			console.log(array)
+
+			return array
 		}
 	},
 
 	methods: {
 		generateReport () {
 			this.$refs.html2Pdf.generatePdf()
+		},
+
+		truncateDecimals (number, digits) {
+			var multiplier = Math.pow(10, digits),
+				adjustedNum = number * multiplier,
+				truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
+
+			return truncatedNum / multiplier;
 		}
 	},
 

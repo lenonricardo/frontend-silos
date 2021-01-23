@@ -15,7 +15,7 @@
 					overlap
 					color="red"
 				>
-					<v-icon large>mdi-bell</v-icon>
+					<v-icon style="font-size: 24px!important" large>mdi-bell</v-icon>
 				</v-badge>
 			</v-btn>
 		</v-app-bar>

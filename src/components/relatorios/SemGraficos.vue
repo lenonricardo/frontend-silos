@@ -47,15 +47,19 @@ export default {
 		Header
 	},
 
-	data: () => ({
-		classificacao: [
-			{ grao: 'Sadios', porcentagem: 95 },
-			{ grao: 'Imaturos', porcentagem: 2 },
-			{ grao: 'Queimados', porcentagem: 1 },
-			{ grao: 'Fermentados', porcentagem: 1 },
-			{ grao: 'Chochos', porcentagem: 0.5 }
-		]
-	})
+	props: {
+		classificacao: { type: Array }
+	},
+
+	// data: () => ({
+	// 	classificacao: [
+	// 		{ grao: 'Sadios', porcentagem: 95 },
+	// 		{ grao: 'Imaturos', porcentagem: 2 },
+	// 		{ grao: 'Queimados', porcentagem: 1 },
+	// 		{ grao: 'Fermentados', porcentagem: 1 },
+	// 		{ grao: 'Chochos', porcentagem: 0.5 }
+	// 	]
+	// })
 }
 </script>
 <style lang="sass" scoped>

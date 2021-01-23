@@ -16,6 +16,7 @@
 		>
 			<v-btn
 				small
+				dark
 				color="#44cc97"
 				width="150px"
 				style="margin-right: 10px"
@@ -81,6 +82,7 @@
 
 <script>
 import API from '../services'
+import EventBus from '../EventBus'
 
 	export default {
 	data () {
@@ -119,19 +121,22 @@ import API from '../services'
 			var dataURI = canvas.toDataURL('image/png'); //O
 			this.img = dataURI
 			// console.log(dataURI)
+			this.$store.state.img = this.img
+			this.getData(this.img, 'image')
 
-			var a = document.createElement("a") //Create <a>
-			a.href = this.img//Image Base64 Goes here
-			a.download = "Image.png" //File name Here
-			a.click()
+			// var a = document.createElement("a") //Create <a>
+			// a.href = this.img//Image Base64 Goes here
+			// a.download = "Image.png" //File name Here
+			// a.click()
 		},
 
 		async confirm () {
+			this.loading = true
+
 			var reader = new FileReader();
-			reader.onload = function(e) {
-				const resp = API.savePost(e.target.result)
+			reader.onload = (e) => {
+				this.getData(e.target.result, this.file.name)
 				// eslint-disable-next-line
-				console.log(resp)
 				this.imageSrc = e.target.result
 			};
 
@@ -167,11 +172,37 @@ import API from '../services'
 				});
 			}
 
+		},
+
+		getData (base64, fileName) {
+			API.savePost(base64, fileName)
+				.then(response => {
+					this.$store.state.json = response.data
+					EventBus.$emit('atualizarNotificacoes',
+						{message: `Parabéns! ${this.truncateDecimals(this.$store.state.json.classes.sadio, 2)}% da sua amostra são de grãos sadios! `}
+					)
+					this.loading = false
+				})
+				.catch(error => {
+					// eslint-disable-next-line
+					console.log(error)
+					this.loading = false
+				})
+		},
+
+		truncateDecimals (number, digits) {
+			var multiplier = Math.pow(10, digits),
+				adjustedNum = number * multiplier,
+				truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
+
+			return truncatedNum / multiplier;
 		}
 	},
 
 	mounted () {
 		this.loadCamera()
+		// eslint-disable-next-line
+		console.log(this.$store.state.json)
 	}
 	}
 </script>

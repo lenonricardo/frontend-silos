@@ -40,8 +40,9 @@
 			>
 				<v-btn
 					small
+					dark
 					color="#44cc97"
-					width="150px"
+					width="120px"
 					@click="gerar"
 				>
 					Gerar
@@ -95,14 +96,15 @@ methods: {
 
 		Email.send({
 			SecureToken: "e5c99654-0966-44da-8fdc-8ca6041a9a2d",
-        To: 'lenon_ricardo@hotmail.com',
-        From: "lenonricardomendes@gmail.com",
-        Subject: "Existem grãos que são sadios",
-        Body: "<a href='google.com'>Top</a> demais!",
-      })
-        .then(function (message) {
-			  console.log(message)
-        });
+			To: 'lenon_ricardo@hotmail.com',
+			From: "lenonricardomendes@gmail.com",
+			Subject: "Existem grãos que são sadios",
+			Body: "<a href='google.com'>Top</a> demais!",
+		})
+			.then(function (message) {
+				// eslint-disable-next-line
+				console.log(message)
+			});
 	}
 },
 created () {

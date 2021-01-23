@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    login: ''
+	json: {classes: {avaria: 16.991001902912, sadio: 83.012021912019209}},
+	img : ''
   },
   mutations: {
     change(state, data) {
@@ -26,7 +27,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    login: state => state.login,
+    json: state => state.json,
     isLogin: state => state.login != null && state.login.name && state.login.name != null,
   }
 });

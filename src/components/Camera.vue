@@ -20,15 +20,16 @@
 				color="#44cc97"
 				width="150px"
 				style="margin-right: 10px"
-				@click="capture"
+				@click="img === null ? capture() : confirmar()"
 			>
 				<v-icon
+					v-if="img === null"
 					dark
 					left
 				>
 					mdi-camera
 				</v-icon>
-				Capturar
+				{{img === null ? 'Capturar' : 'Processar'}}
 			</v-btn>
 			<v-btn
 				small
@@ -43,6 +44,15 @@
 				mdi-cancel
 			</v-icon>
 				Cancelar
+			</v-btn>
+			<v-btn
+				v-if="img !== null"
+				style="margin-left: 10px"
+				small
+				color="primary"
+				@click="save"
+			>
+				Salvar Imagem
 			</v-btn>
 		</v-col>
 		</v-toolbar>
@@ -75,7 +85,29 @@
 				</v-btn>
 			</template>
 		</div>
+		<v-alert
+			v-if="alert !== ''"
+			dense
+			text
+			:type="success ? 'success' : 'error'"
+		>
+			{{alert}}
+		</v-alert>
+		<div v-if="success	" style="display: flex; justify-content: flex-end; margin-right: 10px; align-items: center">
+			<a style="text-decoration: none; color: #868686" @click="redirect()">
+			 	Ir para Relatórios
+			</a>
+			<v-btn icon>
+				<v-icon
+					dark
+					left
+				>
+					mdi-arrow-right
+				</v-icon>
+			</v-btn>
+		</div>
 		</v-card>
+
 	</div>
 
 </template>
@@ -97,7 +129,9 @@ import EventBus from '../EventBus'
 		devices: [],
 		loading: false,
 		file: null,
-		imageSrc: null
+		imageSrc: null,
+		alert: '',
+		success: false
 		}
 	},
 	components: {
@@ -122,17 +156,16 @@ import EventBus from '../EventBus'
 			this.img = dataURI
 			// console.log(dataURI)
 			this.$store.state.img = this.img
-			this.getData(this.img, 'image')
+		},
 
-			// var a = document.createElement("a") //Create <a>
-			// a.href = this.img//Image Base64 Goes here
-			// a.download = "Image.png" //File name Here
-			// a.click()
+		save () {
+			var a = document.createElement("a") //Create <a>
+			a.href = this.img//Image Base64 Goes here
+			a.download = "Image.png" //File name Here
+			a.click()
 		},
 
 		async confirm () {
-			this.loading = true
-
 			var reader = new FileReader();
 			reader.onload = (e) => {
 				this.getData(e.target.result, this.file.name)
@@ -148,16 +181,19 @@ import EventBus from '../EventBus'
 
 		cancel () {
 			this.img = null
+			this.alert = ''
 			this.loadCamera()
 		},
 
-		loadCamera () {
+		async loadCamera () {
 				//Captura elemento de vídeo
-			var video = document.querySelector("#webCamera");
+			var video = await document.querySelector("#webCamera");
 				//As opções abaixo são necessárias para o funcionamento correto no iOS
-				video.setAttribute('autoplay', '');
-				video.setAttribute('muted', '');
-				video.setAttribute('playsinline', '');
+
+			video.setAttribute('autoplay', '');
+			video.setAttribute('muted', '');
+			video.setAttribute('playsinline', '');
+
 				//--
 
 			//Verifica se o navegador pode capturar mídia
@@ -168,24 +204,34 @@ import EventBus from '../EventBus'
 					video.srcObject = stream;
 				})
 				.catch(function() {
-					alert("Oooopps... Falhou :'(");
+					// eslint-disable-next-line
+					console.log("Oooopps... Falhou :'(");
 				});
 			}
 
 		},
 
+		confirmar () {
+			this.getData(this.img, 'image')
+		},
+
 		getData (base64, fileName) {
+			this.loading = true
 			API.savePost(base64, fileName)
 				.then(response => {
 					this.$store.state.json = response.data
 					EventBus.$emit('atualizarNotificacoes',
 						{message: `Parabéns! ${this.truncateDecimals(this.$store.state.json.classes.sadio, 2)}% da sua amostra são de grãos sadios! `}
 					)
+					this.alert = 'Imagem processada com sucesso!'
+					this.success = true
 					this.loading = false
 				})
 				.catch(error => {
+					this.alert = 'Houve um erro ao realizar a requisição. Por favor, tente novamente!'
 					// eslint-disable-next-line
 					console.log(error)
+					this.success = false
 					this.loading = false
 				})
 		},
@@ -196,6 +242,10 @@ import EventBus from '../EventBus'
 				truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
 
 			return truncatedNum / multiplier;
+		},
+
+		redirect () {
+			this.$router.push('/relatorios')
 		}
 	},
 
@@ -206,3 +256,10 @@ import EventBus from '../EventBus'
 	}
 	}
 </script>
+
+<style lang="sass" scoped>
+	.btn-ir-rel
+		width: 100%
+		display: flex
+		justify-content: flex-end
+</style>

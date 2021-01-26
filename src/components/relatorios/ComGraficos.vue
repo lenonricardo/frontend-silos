@@ -13,7 +13,7 @@
 				<div class="line"><span class="title">Teor de Impureza: </span><span>15%</span></div>
 			</div>
 		</div>
-		<div class="img-amostra">
+		<div :class="classImage">
 			<h1 class="img-text"> Imagem da Amostra</h1>
 			<img v-if="imgSrc !== ''" :src="imgSrc" class="image"/>
 			<img v-else src="../../assets/amostra.png" class="image"/>
@@ -45,8 +45,12 @@ export default {
 
 	computed : {
 		imgSrc () {
-			console.log(this.$store.state.img)
+			// console.log(this.$store.state.img)
 			return this.$store.state.img
+		},
+
+		classImage () {
+			return this.imgSrc !== '' ? 'img-amostra' : 'image-amostra'
 		}
 	}
 }
@@ -74,6 +78,15 @@ export default {
 
 	.img-amostra
 		width: 80%
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 30px
+		flex-direction: column
+		margin-bottom: 150px
+
+	.image-amostra
+		width: 100%
 		display: flex
 		align-items: center
 		justify-content: center

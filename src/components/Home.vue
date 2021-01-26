@@ -14,11 +14,11 @@
 		<v-banner
 			single-line
 		>
-			Resultados da última amostra coletada.
+			{{text}}
 		</v-banner>
 		<v-container fluid>
 			<div style="max-height: 80%">
-				<Chart/>
+				<Chart v-if="this.$store.state.json !==''"/>
 			</div>
 		</v-container>
 		</v-card>
@@ -40,6 +40,11 @@ export default {
 
   components: {
      Chart
+  },
+  computed: {
+	  text () {
+		  return this.$store.state.json !== '' ? 'Resultados da última amostra coletada.' : '<Não há dados disponíveis>'
+	  }
   },
 
   methods: {

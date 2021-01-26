@@ -52,10 +52,10 @@
 		<v-alert
 			v-if="alertar"
 			dense
-			outlined
+			text
 			type="error"
 		>
-			Ops! Parece que esse modelo ainda não foi implementado.
+			Não há dados disponíveis para Gerar Relatórios.
 		</v-alert>
 	</v-container>
 	<Report
@@ -88,7 +88,11 @@ data: () => ({
 
 methods: {
 	gerar() {
-		EventBus.$emit('gerarRelatorio', this.select.valor)
+		if (this.$store.state.json !== '') {
+			EventBus.$emit('gerarRelatorio', this.select.valor)
+		} else {
+			this.alertar = true
+		}
 		// this.sendEmail()
 	},
 

@@ -150,7 +150,7 @@ import EventBus from '../EventBus'
 		loading: false,
 		file: null,
 		imageSrc: null,
-		alert: 'Imagem processada com sucesso!',
+		alert: '',
 		success: false,
 		requerente: '',
 		responsavel: ''

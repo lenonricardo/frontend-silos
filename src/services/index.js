@@ -15,7 +15,7 @@ export default {
 		formData.append('img', article);
 		formData.append('image', name);
 
-		return axios.post('http://silosapi.herokuapp.com/results_class', formData, {
+		return axios.post('https://silosapi.herokuapp.com/results_class', formData, {
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'text/json',

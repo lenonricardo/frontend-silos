@@ -5,7 +5,8 @@ import EventBus from '../EventBus'
 
 export default {
 	props: {
-		report: { type: Boolean, default: false}
+		report: { type: Boolean, default: false},
+		amostra: { type: Object }
 	},
 
 	extends: Bar,
@@ -13,8 +14,15 @@ export default {
 		const label = []
 		const data = []
 		const self = this
+		let amostra
 
-		Object.entries(this.$store.state.json.classes).forEach(([key, value]) => {
+		if (!this.amostra.data) {
+			amostra = this.$store.state.json[0].data.classes
+		} else {
+			amostra = this.amostra.data.classes
+		}
+
+		Object.entries(amostra).forEach(([key, value]) => {
 			label.push(key)
 			data.push(self.truncateDecimals(value, 2))
 		})
@@ -52,6 +60,37 @@ export default {
 				truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
 
 			return truncatedNum / multiplier;
+		},
+
+		render (dados) {
+			const label = []
+			const data = []
+			const self = this
+			let amostra
+
+			if (!dados) {
+				amostra = this.$store.state.json[0].data.classes
+			} else {
+				amostra = dados.data.classes
+			}
+
+			Object.entries(amostra).forEach(([key, value]) => {
+				label.push(key)
+				data.push(self.truncateDecimals(value, 2))
+			})
+
+			this.renderChart({
+			// labels: ['Sadios', 'Imaturos', 'Queimados', 'Sujeira', 'Chochos', 'Fermentados'],
+			labels: label,
+			datasets: [
+			{
+				label: 'porcentagem (%)',
+				backgroundColor: '#44cc97',
+				// data: [95, 2, 1, 0.5, 1, 0.5]
+				data: data
+			}
+			]
+		}, {responsive: true, animation: { onComplete: this.done()}})
 		}
 	}
 }

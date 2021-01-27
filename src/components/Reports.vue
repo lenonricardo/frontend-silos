@@ -25,11 +25,27 @@
 			sm="6"
 			>
 			<v-select
+				v-model="amostraSelected"
+				:items="amostras"
+				item-text="text"
+				item-value="id"
+				label="Amostra"
+			></v-select>
+			<v-spacer/>
+			</v-col>
+		</v-row>
+		<v-row align="center">
+			<v-col
+			class="d-flex"
+			cols="12"
+			sm="6"
+			>
+			<v-select
 				v-model="select"
 				:items="items"
 				item-text="texto"
 				item-value="valor"
-				label="Selecione"
+				label="Modelo"
 			></v-select>
 			<v-spacer/>
 			</v-col>
@@ -60,6 +76,7 @@
 	</v-container>
 	<Report
 		:model="select"
+		:amostra="dataAmostra"
 	/>
 	</v-card>
 </div>
@@ -83,18 +100,35 @@ data: () => ({
 	select: 'grafico',
 	gerarRelatorio: false,
 	loading: true,
-	alertar: false
+	alertar: false,
+	amostraSelected: 1,
+	dataAmostra: {}
 }),
+
+computed: {
+	amostras () {
+		return this.$store.state.json
+	}
+},
+
+watch: {
+	amostraSelected (value) {
+		this.dataAmostra = this.$store.state.json.find(p => p.id === value)
+	}
+},
 
 methods: {
 	gerar() {
-		if (this.$store.state.json !== '') {
+		if (this.$store.state.json.length) {
 			EventBus.$emit('gerarRelatorio', this.select.valor)
 		} else {
 			this.alertar = true
 		}
 		// this.sendEmail()
 	},
+	// change() {
+	// 	this.dataAmostra = this.$store.state.json.find(p => p.id === this.amostraSelected)
+	// },
 
 	sendEmail () {
 
@@ -117,6 +151,11 @@ created () {
 	setTimeout(function(){
 		self.loading = false
 	}, 2000);
+},
+
+mounted () {
+	this.amostraSelected = 1
+	this.dataAmostra = this.$store.state.json[0]
 },
 
 destroyed () {

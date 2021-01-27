@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-	json: '',
+	json: [],
+	id: 0,
 	img : ''
   },
   mutations: {

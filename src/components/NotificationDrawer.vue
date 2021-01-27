@@ -10,7 +10,7 @@
 
 	<v-navigation-drawer
 		v-model="toggleDrawer"
-		width="50vh"
+		width="45vh"
 		absolute
 		right
 		temporary
@@ -114,7 +114,6 @@ export default {
 	mounted () {
 		EventBus.$on('atualizarNotificacoes', (msg) => {
 			this.items.unshift(msg)
-			console.log(msg)
 		})
 
 		this.$emit('update:messages', this.items.length)

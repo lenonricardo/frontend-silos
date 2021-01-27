@@ -1,32 +1,31 @@
 <template>
 	<div>
-		<Header/>
+		<Header :title="'Relatório de Resultado de Amostra - Gráficos'"/>
 		<div class="text-content">
 			<div class="text-content-left">
-				<div class="line"><span class="title">Amostra Nº: </span><span>10</span></div>
-				<div class="line"><span class="title">Requerente: </span><span> Lenon Ricardo Mendes</span></div>
-				<div class="line"><span class="title">Responsável pela coleta: </span><span> Ricardo Mendes</span></div>
+				<div class="line"><span class="title">Amostra Nº: </span><span>{{classificacao.id}}</span></div>
+				<div class="line"><span class="title">Requerente: </span><span> {{classificacao.requerente}}</span></div>
+				<div class="line"><span class="title">Responsável pela coleta: </span><span> {{classificacao.responsavel}}</span></div>
 			</div>
-			<div class="text-content-right">
+			<!--<div class="text-content-right">
 				<div class="line"><span class="title">Peso: </span><span>100g</span></div>
 				<div class="line"><span class="title">Umidade: </span><span>10%</span></div>
 				<div class="line"><span class="title">Teor de Impureza: </span><span>15%</span></div>
-			</div>
+			</div>-->
 		</div>
 		<div :class="classImage">
 			<h1 class="img-text"> Imagem da Amostra</h1>
 			<img v-if="imgSrc !== ''" :src="imgSrc" class="image"/>
-			<img v-else src="../../assets/amostra.png" class="image"/>
 		</div>
 		<div class="frame">
 			<div class="header-frame">
 				<span>Dados Extraídos da Amostra</span>
 			</div>
 			<img v-bind:src="chartImage" class="chart-image"/>
-			<div class="chart-label">
-				<div class="line"><span class="title">Total: </span><span style="margin-right: 10px">1.235 (100%)</span></div>
-				<div class="line"><span class="title">Não detectados: </span><span>5 (0.2%)</span></div>
-			</div>
+			<!--<div class="chart-label">
+				<div class="line"><span class="title">Avaria: </span><span style="margin-right: 10px">{{classificacao.data[0].avaria}}</span></div>
+				<div class="line"><span class="title">Sadios: </span><span>{{classificacao.data[1].sadio}}</span></div>
+			</div>-->
 		</div>
 	</div>
 </template>
@@ -36,7 +35,8 @@ import Header from './components/header'
 
 export default {
 	props: {
-		chartImage: {required: true, type: String}
+		chartImage: {required: true, type: String},
+		classificacao: { type: Object }
 	},
 
 	components: {
@@ -45,8 +45,7 @@ export default {
 
 	computed : {
 		imgSrc () {
-			// console.log(this.$store.state.img)
-			return this.$store.state.img
+			return this.classificacao.img
 		},
 
 		classImage () {
@@ -77,13 +76,14 @@ export default {
 		font-weight: bold
 
 	.img-amostra
-		width: 80%
+		width: 100%
+		height: 750px
 		display: flex
 		align-items: center
 		justify-content: center
-		margin-top: 30px
+		margin-top: -150px
 		flex-direction: column
-		margin-bottom: 150px
+		margin-bottom: 300px
 
 	.image-amostra
 		width: 100%

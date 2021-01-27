@@ -91,7 +91,7 @@
 				</v-avatar>
 			</div>
 		</v-container>
-		<!--<div >
+		<div style="display: flex; justify-content: space-between; margin-right: 400px; align-items: center">
 			<template>
 				<v-file-input
 					v-model="file"
@@ -99,20 +99,21 @@
 					label="Selecione uma imagem..."
 					style="padding-right: 10px"
 				></v-file-input>
-				<v-btn small depressed color="primary" @click="confirm" style="margin-left: 10px">
+				<v-btn small depressed color="primary" @click="confirm" style="margin-left: 10px; margin-top: 2px !important">
 					Confirmar
 				</v-btn>
 			</template>
-		</div>-->
+		</div>
+
 		<v-alert
-			v-if="alert !== ''"
-			dense
-			text
-			:type="success ? 'success' : 'error'"
+		v-if="alert !== ''"
+		dense
+		text
+		:type="success ? 'success' : 'error'"
 		>
 			{{alert}}
 		</v-alert>
-		<div v-if="success	" style="display: flex; justify-content: flex-end; margin-right: 10px; align-items: center">
+		<!--<div v-if="true" style="display: flex;  margin-right: 10px; align-items: center">
 			<a style="text-decoration: none; color: #868686" @click="redirect()">
 				Ir para Relatórios
 			</a>
@@ -124,7 +125,7 @@
 					mdi-arrow-right
 				</v-icon>
 			</v-btn>
-		</div>
+		</div>-->
 		</v-card>
 
 	</div>
@@ -149,7 +150,7 @@ import EventBus from '../EventBus'
 		loading: false,
 		file: null,
 		imageSrc: null,
-		alert: '',
+		alert: 'Imagem processada com sucesso!',
 		success: false,
 		requerente: '',
 		responsavel: ''

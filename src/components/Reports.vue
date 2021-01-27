@@ -25,11 +25,27 @@
 			sm="6"
 			>
 			<v-select
+				v-model="amostraSelected"
+				:items="amostras"
+				item-text="text"
+				item-value="id"
+				label="Amostra"
+			></v-select>
+			<v-spacer/>
+			</v-col>
+		</v-row>
+		<v-row align="center">
+			<v-col
+			class="d-flex"
+			cols="12"
+			sm="6"
+			>
+			<v-select
 				v-model="select"
 				:items="items"
 				item-text="texto"
 				item-value="valor"
-				label="Selecione"
+				label="Modelo"
 			></v-select>
 			<v-spacer/>
 			</v-col>
@@ -40,8 +56,9 @@
 			>
 				<v-btn
 					small
+					dark
 					color="#44cc97"
-					width="150px"
+					width="120px"
 					@click="gerar"
 				>
 					Gerar
@@ -51,14 +68,15 @@
 		<v-alert
 			v-if="alertar"
 			dense
-			outlined
+			text
 			type="error"
 		>
-			Ops! Parece que esse modelo ainda não foi implementado.
+			Não há dados disponíveis para Gerar Relatórios.
 		</v-alert>
 	</v-container>
 	<Report
 		:model="select"
+		:amostra="dataAmostra"
 	/>
 	</v-card>
 </div>
@@ -82,27 +100,49 @@ data: () => ({
 	select: 'grafico',
 	gerarRelatorio: false,
 	loading: true,
-	alertar: false
+	alertar: false,
+	amostraSelected: 1,
+	dataAmostra: {}
 }),
+
+computed: {
+	amostras () {
+		return this.$store.state.json
+	}
+},
+
+watch: {
+	amostraSelected (value) {
+		this.dataAmostra = this.$store.state.json.find(p => p.id === value)
+	}
+},
 
 methods: {
 	gerar() {
-		EventBus.$emit('gerarRelatorio', this.select.valor)
+		if (this.$store.state.json.length) {
+			EventBus.$emit('gerarRelatorio', this.select.valor)
+		} else {
+			this.alertar = true
+		}
 		// this.sendEmail()
 	},
+	// change() {
+	// 	this.dataAmostra = this.$store.state.json.find(p => p.id === this.amostraSelected)
+	// },
 
 	sendEmail () {
 
 		Email.send({
 			SecureToken: "e5c99654-0966-44da-8fdc-8ca6041a9a2d",
-        To: 'lenon_ricardo@hotmail.com',
-        From: "lenonricardomendes@gmail.com",
-        Subject: "Existem grãos que são sadios",
-        Body: "<a href='google.com'>Top</a> demais!",
-      })
-        .then(function (message) {
-			  console.log(message)
-        });
+			To: 'lenon_ricardo@hotmail.com',
+			From: "lenonricardomendes@gmail.com",
+			Subject: "Existem grãos que são sadios",
+			Body: "<a href='google.com'>Top</a> demais!",
+		})
+			.then(function (message) {
+				// eslint-disable-next-line
+				console.log(message)
+			});
 	}
 },
 created () {
@@ -111,6 +151,11 @@ created () {
 	setTimeout(function(){
 		self.loading = false
 	}, 2000);
+},
+
+mounted () {
+	this.amostraSelected = 1
+	this.dataAmostra = this.$store.state.json[0]
 },
 
 destroyed () {

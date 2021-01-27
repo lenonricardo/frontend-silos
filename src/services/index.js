@@ -10,13 +10,20 @@ export default {
 		const img = base64.split(',')[1]
     	return axios.get(`${API_URL}?img=${img}`);
   },
-  savePost(article) {
-		const json = {img: article}
-		let teste = JSON.stringify(json)
-		// console.log(article)
-		// let teste2 = qs.stringify(json)
-		// console.log(teste2)
+  savePost(article, name) {
+		var formData = new FormData();
+		formData.append('img', article);
+		formData.append('image', name);
 
-		return axios.post('https://silosapi.herokuapp.com/results_class', teste);
+		return axios.post('http://silosapi.herokuapp.com/results_class', formData, {
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': 'true',
+				'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+				'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept'
+				},
+		});
   },
 };

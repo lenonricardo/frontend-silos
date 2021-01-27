@@ -23,7 +23,7 @@
 			link
 		>
 			<v-list-item-icon>
-				<v-icon>{{ item.icon }}</v-icon>
+				<v-icon style="font-size: 24px !important">{{ item.icon }}</v-icon>
 			</v-list-item-icon>
 
 			<v-list-item-content>

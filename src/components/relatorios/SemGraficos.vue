@@ -1,17 +1,17 @@
 <template>
 	<div>
-		<Header/>
+		<Header :title="'Relatório de Resultado de Amostra'"/>
 		<div class="text-content">
 			<div class="text-content-left">
-				<div class="line"><span class="title">Amostra Nº: </span><span>10</span></div>
-				<div class="line"><span class="title">Requerente: </span><span> Lenon Ricardo Mendes</span></div>
-				<div class="line"><span class="title">Responsável pela coleta: </span><span> Ricardo Mendes</span></div>
+				<div class="line"><span class="title">Amostra Nº: </span><span>{{classificacao.id}}</span></div>
+				<div class="line"><span class="title">Requerente: </span><span> {{classificacao.requerente}}</span></div>
+				<div class="line"><span class="title">Responsável pela coleta: </span><span> {{classificacao.responsavel}}</span></div>
 			</div>
-			<div class="text-content-right">
+			<!--<div class="text-content-right">
 				<div class="line"><span class="title">Peso: </span><span>100g</span></div>
 				<div class="line"><span class="title">Umidade: </span><span>10%</span></div>
 				<div class="line"><span class="title">Teor de Impureza: </span><span>15%</span></div>
-			</div>
+			</div>-->
 		</div>
 		<v-simple-table>
 			<template v-slot:default>
@@ -27,11 +27,11 @@
 				</thead>
 				<tbody>
 				<tr
-					v-for="item in classificacao"
+					v-for="item in classificacao.data"
 					:key="item.grao"
 				>
 					<td style="text-align: center">{{ item.grao }}</td>
-					<td style="text-align: center">{{ item.porcentagem }}</td>
+					<td style="text-align: center">{{ `${item.porcentagem} %`}}</td>
 				</tr>
 				</tbody>
 			</template>
@@ -47,15 +47,19 @@ export default {
 		Header
 	},
 
-	data: () => ({
-		classificacao: [
-			{ grao: 'Sadios', porcentagem: 95 },
-			{ grao: 'Imaturos', porcentagem: 2 },
-			{ grao: 'Queimados', porcentagem: 1 },
-			{ grao: 'Fermentados', porcentagem: 1 },
-			{ grao: 'Chochos', porcentagem: 0.5 }
-		]
-	})
+	props: {
+		classificacao: { type: Object }
+	},
+
+	// data: () => ({
+	// 	classificacao: [
+	// 		{ grao: 'Sadios', porcentagem: 95 },
+	// 		{ grao: 'Imaturos', porcentagem: 2 },
+	// 		{ grao: 'Queimados', porcentagem: 1 },
+	// 		{ grao: 'Fermentados', porcentagem: 1 },
+	// 		{ grao: 'Chochos', porcentagem: 0.5 }
+	// 	]
+	// })
 }
 </script>
 <style lang="sass" scoped>

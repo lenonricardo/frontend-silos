@@ -15,10 +15,18 @@
 			</div>
 		</div>
 		<div class="title-header">
-			<p style="text-decoration: underline">Relatório de Resultado de Amostra - Gráficos</p>
+			<p style="text-decoration: underline">{{title}}</p>
 		</div>
 	</div>
 </template>
+
+<script>
+	export default {
+		props: {
+			title: { type: String, default: ''}
+		},
+	}
+</script>
 
 <style lang="sass" scoped>
 	.header-report

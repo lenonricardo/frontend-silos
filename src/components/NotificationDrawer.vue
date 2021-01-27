@@ -10,7 +10,7 @@
 
 	<v-navigation-drawer
 		v-model="toggleDrawer"
-		width="50vh"
+		width="45vh"
 		absolute
 		right
 		temporary
@@ -76,14 +76,15 @@
 
 
 <script>
+import EventBus from '../EventBus'
 
 export default {
 	data () {
 		return {
 		items: [
-			{ message: 'Parabéns, 95% da sua amostra são grãos sadios!'},
-			{ message: 'Parabéns, 92% da sua amostra são grãos sadios!'},
-			{ message: 'Parabéns, 86% da sua amostra são grãos sadios!'},
+			// { message: 'Parabéns, 95% da sua amostra são grãos sadios!'},
+			// { message: 'Parabéns, 92% da sua amostra são grãos sadios!'},
+			// { message: 'Parabéns, 86% da sua amostra são grãos sadios!'},
 		]
 		}
 	},
@@ -111,6 +112,10 @@ export default {
 	},
 
 	mounted () {
+		EventBus.$on('atualizarNotificacoes', (msg) => {
+			this.items.unshift(msg)
+		})
+
 		this.$emit('update:messages', this.items.length)
 	},
 

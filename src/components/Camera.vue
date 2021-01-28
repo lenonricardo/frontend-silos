@@ -135,6 +135,7 @@
 <script>
 import API from '../services'
 import EventBus from '../EventBus'
+import Moment from 'moment'
 
 	export default {
 	data () {
@@ -183,7 +184,7 @@ import EventBus from '../EventBus'
 		save () {
 			var a = document.createElement("a") //Create <a>
 			a.href = this.img//Image Base64 Goes here
-			a.download = "Image.png" //File name Here
+			a.download = `${Moment().format('MM-DD HH-mm-ss')}` //File name Here
 			a.click()
 		},
 

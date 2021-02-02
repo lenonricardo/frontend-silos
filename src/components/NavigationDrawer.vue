@@ -4,7 +4,7 @@
 	class="overflow-hidden"
 	style="position: relative;"
 >
-<v-container class="fill-height">
+	<v-container class="fill-height">
 		<slot></slot>
 	</v-container>
 

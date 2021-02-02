@@ -7,26 +7,15 @@
 				<v-img style="width: 110px" src="./assets/logo-sem-fundo.png"></v-img>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn icon @click.stop="rightDrawer = !rightDrawer">
-				<v-badge
-					:content="messages"
-					:value="messages"
-					small
-					overlap
-					color="red"
-				>
-					<v-icon style="font-size: 24px!important" large>mdi-bell</v-icon>
-				</v-badge>
-			</v-btn>
+			<NotificationDrawer :drawer="rightDrawer" :messages.sync="messages"/>
+
 		</v-app-bar>
 		<v-content>
-			<NotificationDrawer :drawer="rightDrawer" :messages.sync="messages">
-				<Drawer :drawer="drawer">
-					<template>
-						<router-view :class="dynamicClass"/>
-					</template>
-				</Drawer>
-			</NotificationDrawer>
+			<Drawer :drawer="drawer">
+				<template>
+					<router-view :class="dynamicClass"/>
+				</template>
+			</Drawer>
 		</v-content>
 	</v-app>
 </template>

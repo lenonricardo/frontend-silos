@@ -120,10 +120,6 @@ export default {
 	},
 
 	methods: {
-		teste () {
-			// console.log('teste')
-		},
-
 		clear() {
 			this.items = []
 		},

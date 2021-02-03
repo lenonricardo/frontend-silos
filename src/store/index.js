@@ -5,7 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-	json: [],
+	json: [
+		// {
+		// 	data: { classes: {avaria: 10, sadio: 90}},
+		// 	id: 1,
+		// 	text: 'Amostra 1',
+		// 	img: ''
+		// },
+	],
 	id: 0,
 	img : ''
   },

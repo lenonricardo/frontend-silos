@@ -3,13 +3,13 @@
 		<div class="header-report">
 			<div class="header-items">
 				<div style="margin-top: 10px">
-					<img src="../../../assets/logo-frisia.png" class="header-logo-img"/>
+					<img src="../../../assets/logo-cocamar.png" class="header-logo-img"/>
 				</div>
 				<div style="display: flex; flex-direction: column">
 					<div class="header-text">
-						<p style="fontWeight: bold">Frísia Cooperativa Agroindustrial</p>
-						<p class="header-info">Rodovia Reno João Novaes, PR 438, Km 15,8 – Boa Vista, 84.530-000</p>
-						<p class="header-info">CNPJ: 76.107.770/0024-96</p>
+						<p style="fontWeight: bold">Cocamar Cooperativa Agroindustrial</p>
+						<p class="header-info">Rodovia PR 218 - Km 16, LTS 163-E e 291-B, Centro, Atalaia - PR, 87630-000</p>
+						<!--<p class="header-info">CNPJ: 76.107.770/0024-96</p>-->
 					</div>
 				</div>
 			</div>
@@ -42,6 +42,7 @@
 		display: flex
 		flex-direction: row
 		margin-top: 10px
+		align-items: center
 
 	.header-logo-img
 		height: 40%

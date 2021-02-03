@@ -2,15 +2,16 @@
 	<div style="width: 100%; height: 100%; display: flex;">
 		<v-card
 			:loading="loading"
-			width="135vh"
+			width="80vh"
 			max-height="87vh"
 			elevation="4"
 			style="margin-left: 0px !important;"
 		>
 
 		<v-toolbar flat >
-			<v-row style="display: flex; margin-top: 15px">
-				<v-col
+			<v-toolbar-title v-if="$vuetify.breakpoint.xs" style="font-weight: bold">Selecione uma Imagem</v-toolbar-title>
+			<v-row v-if="!$vuetify.breakpoint.xs" style="display: flex; margin-top: 15px">
+				<!--<v-col
 					class="d-flex"
 					cols="12"
 					sm="3"
@@ -29,8 +30,8 @@
 						v-model="responsavel"
 						label="Responsável pela coleta"
 					/>
-				</v-col>
-				<div style=" margin-left: 10px; margin-top: 15px">
+				</v-col>-->
+				<div style=" margin-left: 10px;">
 					<v-btn
 						small
 						dark
@@ -77,21 +78,21 @@
 		</v-toolbar>
 		<v-divider></v-divider>
 
-		<v-container fluid>
+		<v-container v-if="!$vuetify.breakpoint.xs" fluid>
 			<div style="max-height: 80%">
-				<video v-if="img === null" width="70%" autoplay="true" id="webCamera"></video>
+				<video v-if="img === null" width="100%" autoplay="true" id="webCamera"></video>
 
 				<v-avatar
 					v-else
 					tile="tile"
-					size="80%"
+					size="100%"
 					color="grey lighten-4"
 				><img :src="img" />
 
 				</v-avatar>
 			</div>
 		</v-container>
-		<div style="display: flex; justify-content: space-between; margin-right: 400px; align-items: center">
+		<div style="display: flex; justify-content: space-between; margin-right: 100px; align-items: center">
 			<template>
 				<v-file-input
 					v-model="file"
@@ -113,7 +114,7 @@
 		>
 			{{alert}}
 		</v-alert>
-		<!--<div v-if="true" style="display: flex;  margin-right: 10px; align-items: center">
+		<!--<div v-if="success" style="display: flex;  margin-left: 10px; align-items: center">
 			<a style="text-decoration: none; color: #868686" @click="redirect()">
 				Ir para Relatórios
 			</a>

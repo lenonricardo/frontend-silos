@@ -4,14 +4,15 @@
 	class="overflow-hidden"
 	style="position: relative;"
 >
-<v-container class="fill-height">
+	<v-container class="fill-height">
 		<slot></slot>
 	</v-container>
 
 	<v-navigation-drawer
 		v-model="toggleDrawer"
 		absolute
-		:pemanent="toggleDrawer"
+		:permanent="!$vuetify.breakpoint.xs"
+		:hide-overlay="!$vuetify.breakpoint.xs"
 	>
 		<v-divider></v-divider>
 
@@ -44,7 +45,7 @@ export default {
 			{ title: 'Início', icon: 'mdi-view-dashboard', path: '/' },
 			{ title: 'Capturar Amostra', icon: 'mdi-camera', path: '/camera' },
 			{ title: 'Relatórios', icon: 'mdi-file-chart', path: '/relatorios' },
-		],
+		]
 		}
 	},
 

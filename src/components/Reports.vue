@@ -94,10 +94,10 @@ components: {
 
 data: () => ({
 	items: [
-		{ texto: 'Gráfico', valor: 'grafico'},
-		{ texto: 'Cooperado', valor: 'sem-grafico'}
+		{ texto: 'Cooperado', valor: 'sem-grafico'},
+		{ texto: 'Com Gráfico/Imagem', valor: 'grafico'}
 	],
-	select: 'grafico',
+	select: 'sem-grafico',
 	gerarRelatorio: false,
 	loading: true,
 	alertar: false,

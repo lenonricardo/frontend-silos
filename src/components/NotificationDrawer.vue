@@ -1,14 +1,14 @@
 <template>
-  <div class="text-center">
-    <v-menu
-      v-model="menu"
+	<div class="text-center">
+		<v-menu
+		v-model="menu"
 		style="left: 40px"
-      :close-on-content-click="false"
-      :nudge-width="400"
+		:close-on-content-click="false"
+		:nudge-width="400"
 		bottom
-      offset-x
-    >
-	  <template v-slot:activator="{ on, attrs }">
+		offset-x
+		>
+		<template v-slot:activator="{ on, attrs }">
 			<v-btn icon @click.stop="menu = !menu">
 				<v-badge
 					:content="messages"
@@ -24,25 +24,25 @@
 			</v-btn>
 		</template>
 
-      <v-card max-height="50vh" style="padding-bottom: 20px; padding-right: 0px">
-        <v-list>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Central de Notificações</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
-                icon
-                @click="menu = !menu"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-list-item-action>
+		<v-card max-height="50vh" style="padding-bottom: 20px; padding-right: 0px">
+			<v-list>
+				<v-list-item>
+				<v-list-item-content>
+					<v-list-item-title>Central de Notificações</v-list-item-title>
+				</v-list-item-content>
+				<v-list-item-action>
+					<v-btn
+						icon
+						@click="menu = !menu"
+					>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+				</v-list-item-action>
 
-          </v-list-item>
-        </v-list>
+				</v-list-item>
+			</v-list>
 
-        <v-divider></v-divider>
+			<v-divider></v-divider>
 
 			<v-list dense>
 				<v-list-item
@@ -78,15 +78,15 @@
 					&lt;Não há notificações&gt;
 				</span>
 			</div>
-      </v-card>
-    </v-menu>
-  </div>
+		</v-card>
+		</v-menu>
+	</div>
 </template>
 
 <script>
-import EventBus from '../EventBus'
+	import EventBus from '../EventBus'
 
-export default {
+	export default {
 	data () {
 		return {
 		items: [],
@@ -133,7 +133,7 @@ export default {
 			this.items.splice(i, 1)
 		}
 	}
-}
+	}
 </script>
 
 <style lang="sass">
